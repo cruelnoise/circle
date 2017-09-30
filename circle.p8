@@ -32,11 +32,11 @@ function vec2d.__sub(a, b)
 end
 function vec2d.__mul(a, b)
  if type(a) == "number" then
-  return b.x * a, b.y * a
+  return makevec2d(b.x * a, b.y * a)
  elseif type(b) == "number" then
-  return a.x * b, a.y * b
+  return makevec2d(a.x * b, a.y * b)
  end
- return a.x * b.x, a.y * b.y
+ return makevec2d(a.x * b.x, a.y * b.y)
 end
 function vec2d.__eq(a, b)
  return a.x == b.x and a.y == b.y
@@ -68,14 +68,35 @@ end
 
 function t_vec2d()
 	local vec1 = makevec2d(2,3)
- local vec2 = makevec2d(5,10)
+  local vec2 = makevec2d(5,10)
 
 	-- test vec2d.__add
 	print((vec1 + vec2):tostring() .. " ...should be (7,13)")
 	
 	-- test vec2d.__sub
 	print((vec1 - vec2):tostring() .. " ...should be (-3,-7)")
-	
+
+  -- test vec2d.__mul
+  print((vec1 * vec2):tostring() .. " ...should be (10,30)")
+  print((3 * vec1):tostring() .. " ...should be (6,9)")
+  print((vec2 * 2):tostring() .. " ...should be (10,20)")
+
+  -- test vec2d.__eq
+  print(((vec1 == vec2) and 'true' or 'false') .. " ...should be false")
+  print(((vec1 == makevec2d(2,3)) and 'true' or 'false') .. " ...should be true")
+
+  -- test vec2d:get_magnitude()
+  print(vec1:get_magnitude() .. " ...should be 3.6--")
+
+  -- test vec2d:get_normalized()
+  print(vec1:get_normalized():tostring())
+  print(" ...should be (0.555,0.832)")
+
+  -- test vec2d:get_rotated()
+  print(makevec2d(1,0):get_rotated(90):tostring() .. " ...should be (0,-1)")
+  
+  -- test vec2d:get_negative()
+  print(vec1:get_negative():tostring() .. " ...should be (-2,-3)")
 end
 
 
